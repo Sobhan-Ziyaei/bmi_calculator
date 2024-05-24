@@ -1,3 +1,4 @@
+import 'package:bmi_calculator/constant/colors.dart';
 import 'package:flutter/material.dart';
 
 class RightBgShape extends StatelessWidget {
@@ -13,8 +14,8 @@ class RightBgShape extends StatelessWidget {
         Container(
           width: width,
           height: height,
-          decoration: BoxDecoration(
-            color: Colors.red,
+          decoration: const BoxDecoration(
+            color: redColor,
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(50),
               bottomLeft: Radius.circular(50),
