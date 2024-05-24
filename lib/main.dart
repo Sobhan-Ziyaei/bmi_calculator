@@ -1,3 +1,5 @@
+import 'package:bmi_calculator/constant/colors.dart';
+import 'package:bmi_calculator/screens/home_screen.dart';
 import 'package:bmi_calculator/widgets/left_bg_shape.dart';
 import 'package:bmi_calculator/widgets/right_bg_shape.dart';
 import 'package:flutter/material.dart';
@@ -11,24 +13,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        body: SafeArea(
-          child: Center(
-            child: Column(
-              children: [
-                RightBgShape(width: 170, height: 40),
-                RightBgShape(width: 190, height: 40),
-                RightBgShape(width: 210, height: 40),
-                LeftBgShape(width: 200, height: 40),
-                LeftBgShape(width: 210, height: 40),
-                LeftBgShape(width: 220, height: 40),
-              ],
-            ),
-          ),
-        ),
-      ),
+      theme: ThemeData(fontFamily: 'dana'),
+      home: const HomeScreen(),
     );
   }
 }
