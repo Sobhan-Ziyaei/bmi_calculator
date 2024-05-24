@@ -2,7 +2,6 @@ import 'package:bmi_calculator/constant/colors.dart';
 import 'package:bmi_calculator/widgets/left_bg_shape.dart';
 import 'package:bmi_calculator/widgets/right_bg_shape.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -12,10 +11,20 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final weightController = TextEditingController();
+  final heightContorller = TextEditingController();
+
+  var resultText = '';
+  var resultBMI = 0.00;
+
+  var widthBad = 0.00;
+  var withGood = 0.00;
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -41,6 +50,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   SizedBox(
                     width: 130,
                     child: TextField(
+                      controller: weightController,
                       textAlign: TextAlign.center,
                       keyboardType: TextInputType.number,
                       style: const TextStyle(
@@ -60,6 +70,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   SizedBox(
                     width: 130,
                     child: TextField(
+                      controller: heightContorller,
                       textAlign: TextAlign.center,
                       keyboardType: TextInputType.number,
                       style: const TextStyle(
@@ -79,43 +90,59 @@ class _HomeScreenState extends State<HomeScreen> {
                 ],
               ),
               SizedBox(height: size.height * 0.03),
-              const Text(
-                '!محاسبه کن',
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 28,
-                  fontWeight: FontWeight.bold,
+              InkWell(
+                onTap: () {
+                  final height = double.parse(heightContorller.text);
+                  final weight = double.parse(weightController.text);
+
+                  setState(() {
+                    resultBMI = weight / (height * height);
+
+                    if (resultBMI > 25) {
+                      widthBad = 270;
+                      withGood = 50;
+                      resultText = 'شما اضافه وزن دارید';
+                    } else if (resultBMI >= 18.5 && resultBMI <= 25) {
+                      withGood = 270;
+                      widthBad = 50;
+                      resultText = 'وزن شما نرمال است';
+                    } else {
+                      withGood = 10;
+                      widthBad = 10;
+                      resultText = 'وزن شما پایین تر از حد نرمال است';
+                    }
+                  });
+                },
+                child: const Text(
+                  '!محاسبه کن',
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 28,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
               SizedBox(height: size.height * 0.05),
-              const Text(
-                '31',
-                style: TextStyle(
+              Text(
+                resultBMI.toStringAsFixed(2),
+                style: const TextStyle(
                   color: Colors.black,
                   fontWeight: FontWeight.bold,
                   fontSize: 48,
                 ),
               ),
               SizedBox(height: size.height * 0.03),
-              const Text(
-                'شما اضافه وزن دارید',
-                style: TextStyle(
+              Text(
+                resultText,
+                style: const TextStyle(
                     color: orangeColor,
                     fontSize: 24,
                     fontWeight: FontWeight.bold),
               ),
               SizedBox(height: size.height * 0.05),
-              const RightBgShape(width: 250, height: 40),
+              RightBgShape(width: widthBad, height: 40),
               SizedBox(height: size.height * 0.02),
-              const RightBgShape(width: 200, height: 40),
-              SizedBox(height: size.height * 0.02),
-              const RightBgShape(width: 150, height: 40),
-              SizedBox(height: size.height * 0.02),
-              const LeftBgShape(width: 200, height: 40),
-              SizedBox(height: size.height * 0.02),
-              const LeftBgShape(width: 180, height: 40),
-              SizedBox(height: size.height * 0.02),
-              const LeftBgShape(width: 160, height: 40),
+              LeftBgShape(width: withGood, height: 40),
             ],
           ),
         ),

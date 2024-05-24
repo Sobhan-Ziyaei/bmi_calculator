@@ -11,6 +11,11 @@ class RightBgShape extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
+        const Text(
+          'شاخص منفی',
+          style: TextStyle(color: Colors.red),
+        ),
+        const SizedBox(width: 5),
         Container(
           width: width,
           height: height,

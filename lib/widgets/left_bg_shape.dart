@@ -21,6 +21,11 @@ class LeftBgShape extends StatelessWidget {
               bottomRight: Radius.circular(50),
             ),
           ),
+        ),
+        const SizedBox(width: 5),
+        const Text(
+          'شاخص مثبت',
+          style: TextStyle(color: Colors.green),
         )
       ],
     );
